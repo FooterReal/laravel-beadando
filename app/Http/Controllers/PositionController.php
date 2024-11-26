@@ -4,11 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Position;
 use App\Models\User;
-use App\Models\UserRoomEntry;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class UserController extends Controller
+class PositionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,10 +19,10 @@ class UserController extends Controller
         }
 
         $isadmin = User::all()->where('id','=',Auth::id())->first()->admin;
+        $positions = Position::all();
 
-        $users = User::all();
-        return view('users.index', [
-            'users' => $users,
+        return view('positions.index', [
+            'positions' => $positions,
             'isadmin' => $isadmin
         ]);
     }
@@ -43,11 +42,8 @@ class UserController extends Controller
             return abort(403);
         }
 
-        $positions = Position::all();
-
-        return view('users.create', [
-            'isadmin' => $isadmin,
-            'positions' => $positions
+        return view('positions.create', [
+            'isadmin' => $isadmin
         ]);
     }
 
@@ -67,28 +63,18 @@ class UserController extends Controller
         }
 
         $request->validate([
-            'name' => 'required',
-            'pos' => 'required|exists:positions,id',
-            'email' => 'required|email',
-            'password' => 'required',
-            'phone' => 'required',
-            'card' => 'required|min:16|max:16|regex:/[a-zA-Z0-9]+/i'
+            'name' => 'required|unique:positions,name'
         ],
         [
-            'required' => 'This field is not optional: :attribute'
+            'required' => 'This field is not optional: :attribute',
+            'unique' => 'This field must be a unique value: :attribute'
         ]);
 
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'email_verified_at' => now(),
-            'password' => password_hash($request->password, PASSWORD_DEFAULT),
-            'phone_number' => $request->phone,
-            'card_number' => $request->card,
-            'position_id' => $request->pos
+        Position::create([
+            'name' => $request->name
         ]);
 
-        return redirect()->route('users.index');
+        return redirect()->route('positions.index');
     }
 
     /**
@@ -100,16 +86,10 @@ class UserController extends Controller
             return redirect()->route('login');
         }
 
-        $isadmin = User::all()->where('id','=',Auth::id())->first()->admin;
+        $users = Position::findOrFail($id)->users;
 
-        if (!$isadmin) {
-            return abort(403);
-        }
-
-        $entries = UserRoomEntry::where('user_id','=',$id)->paginate(10);
-
-        return view('users.show', [
-            'entries' => $entries
+        return view('positions.show', [
+            'users' => $users
         ]);
     }
 
@@ -128,18 +108,12 @@ class UserController extends Controller
             return abort(403);
         }
 
-        $user = User::findOrFail($id);
-        $positions = Position::all();
+        $position = Position::findOrFail($id);
 
-        return view('users.edit', [
+        return view('positions.edit', [
             'id' => $id,
-            'name' => $user->name,
-            'pos' => $user->position_id,
-            'email' => $user->email,
-            'phone' => $user->phone_number,
-            'card' => $user->card_number,
-            'isadmin' => $isadmin,
-            'positions' => $positions
+            'name' => $position->name,
+            'isadmin' => $isadmin
         ]);
     }
 
@@ -159,31 +133,18 @@ class UserController extends Controller
         }
 
         $request->validate([
-            'name' => 'required',
-            'pos' => 'required|exists:positions,id',
-            'email' => 'required|email',
-            'password' => 'required',
-            'phone' => 'required',
-            'card' => 'required|min:16|max:16|regex:/[a-zA-Z0-9]+/i'
+            'name' => 'required|unique:positions,name'
         ],
         [
             'required' => 'This field is not optional: :attribute',
-            'exists' => 'Invalid value: :attribute',
-            'email' => 'Invalid email format.',
-            'regex' => 'Invalid card format.'
+            'unique' => 'This field must be a unique value: :attribute'
         ]);
 
-        User::findOrFail($id)->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'email_verified_at' => now(),
-            'password' => password_hash($request->password, PASSWORD_DEFAULT),
-            'phone_number' => $request->phone,
-            'card_number' => $request->card,
-            'position_id' => $request->pos
+        Position::findOrFail($id)->update([
+            'name' => $request->name
         ]);
 
-        return redirect()->route('users.index');
+        return redirect()->route('positions.index');
     }
 
     /**
@@ -201,8 +162,8 @@ class UserController extends Controller
             return abort(403);
         }
 
-        User::destroy($id);
+        Position::destroy($id);
 
-        return redirect()->route('users.index');
+        return redirect()->route('positions.index');
     }
 }
