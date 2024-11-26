@@ -22,6 +22,17 @@
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
+
+                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                        @auth
+                            <form class="inline-block" method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit">Logout</button>
+                            </form>
+                        @else
+                            <a href="{{ route('login') }}">Login</a>
+                        @endauth
+                    </div>
                 </header>
             @endisset
 
