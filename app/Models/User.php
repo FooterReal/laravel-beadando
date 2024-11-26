@@ -24,7 +24,8 @@ class User extends Authenticatable
         'email',
         'password',
         'phone_number',
-        'card_number'
+        'card_number',
+        'position_id'
     ];
 
     protected $attributes = [
