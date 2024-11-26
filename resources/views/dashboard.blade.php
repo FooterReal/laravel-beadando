@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Main Page') }}
+            {{ __('Dashboard') }}
         </h2>
     </x-slot>
 
@@ -9,11 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{ __("This program is used to see and manage data regarding users, rooms and room entries.") }}
-                </div>
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <p>Number of rooms: {{$num_rooms}}</p>
-                    <p>Number of users: {{$num_users}}</p>
+                    {{ __("You're logged in!") }}
                 </div>
             </div>
         </div>
