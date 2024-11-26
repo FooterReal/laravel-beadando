@@ -10,7 +10,7 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     @auth
-                    <table class="border-collapse table-auto w-full text-sm">
+                    <table class="border-collapse table-auto text-sm">
                         <tr>
                             <th>Name</th>
                             <th>Phone number</th>
