@@ -20,7 +20,7 @@
                             <tr>
                                 <td class="border-b">{{$entry->created_at}}</td>
                                 <td class="border-b">{{$entry->room->name}}</td>
-                                <td class="border-b">{{$entry->sucessful === 1 ? 'Yes' : 'No'}}</td>
+                                <td class="border-b">{{$entry->successful ? 'Yes' : 'No'}}</td>
                             </tr>
                         @endforeach
                     </table>
