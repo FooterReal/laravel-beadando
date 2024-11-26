@@ -54,7 +54,7 @@ class DatabaseSeeder extends Seeder
 
             $canEnter = in_array($user_pos_id, $room_pos_ids);
 
-            $entry->update(['successful' => $canEnter != null]);
+            $entry->update(['successful' => $canEnter]);
         }
     }
 }
