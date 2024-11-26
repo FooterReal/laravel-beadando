@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
 
         User::factory()->create([
             'name' => 'admin',
+            'email' => 'admin@admin.com',
             'admin' => true,
             'position_id' => $positions[0]->id
         ]);
