@@ -173,6 +173,18 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
+
+        $isadmin = User::all()->where('id','=',Auth::id())->first()->admin;
+
+        if (!$isadmin) {
+            return abort(403);
+        }
+
+        User::destroy($id);
+
+        return redirect()->route('users.index');
     }
 }

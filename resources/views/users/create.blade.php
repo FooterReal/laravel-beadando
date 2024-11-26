@@ -58,7 +58,7 @@
                         @enderror
                         <br><br>
 
-                        <button type="submit" class="p-2 bg-blue-500 hover:bg-blue-900 text-black rounded-lg shadow-sm">Küldés</button>
+                        <button type="submit" class="p-2 bg-blue-500 hover:bg-blue-900 text-black rounded-lg shadow-sm">Send</button>
                     </form>
 
                     @endif

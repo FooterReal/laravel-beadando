@@ -23,8 +23,14 @@
                                 <td class="border-b">{{$user->phone_number}}</td>
                                 @if ($isadmin)
                                     <td class="border-b"><a class="text-blue-600 hover:text-blue-800 visited:text-purple-600 rounded-lg shadow-sm mt-4" href="{{route('users.edit', $user->id)}}">Edit</a>
-                                    <td class="border-b"><a class="text-blue-600 hover:text-blue-800 visited:text-purple-600 rounded-lg shadow-sm mt-4" href="{{route('users.delete', $user->id)}}">Delete</a>
                                     <td class="border-b"><a class="text-blue-600 hover:text-blue-800 visited:text-purple-600 rounded-lg shadow-sm mt-4" href="{{route('users.show', $user->id)}}">History</a>
+                                    <td class="border-b">
+                                        <form class="flex flex-col gap-4" action="{{ route('users.delete', $user->id) }}" method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit" class="p-2 bg-blue-500 hover:bg-blue-900 text-black rounded-lg shadow-sm">Delete</button>
+                                        </form>
+                                    </td>
                                 @endif
                             </tr>
                         @endforeach

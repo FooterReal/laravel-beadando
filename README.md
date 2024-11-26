@@ -4,7 +4,7 @@
 [X] Dolgozók listázása (2 pont)
 [X] Új dolgozó létrehozása (3 pont)
 [X] Dolgozó módosítása (3 pont)
-[ ] Dolgozó törlése (1 pont)
+[X] Dolgozó törlése (1 pont)
 [ ] Dolgozó belépéseinek története (2 pont)
 [ ] Munkakörök listázása (2 pont)
 [ ] Új munkakör létrehozása (2 pont)
