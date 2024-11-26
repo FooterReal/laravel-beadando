@@ -37,7 +37,7 @@ class DatabaseSeeder extends Seeder
         foreach($rooms as $room) {
             $room_positions = $positions->random(random_int(1, $positions->count()));
 
-            for ($i=0; $i < 5; $i++) {
+            for ($i=0; $i < 20; $i++) {
                 UserRoomEntry::factory()->for($room)->for($users->random())->create();
             }
 

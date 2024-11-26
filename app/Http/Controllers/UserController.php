@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Position;
 use App\Models\User;
+use App\Models\UserRoomEntry;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -95,7 +96,21 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
+
+        $isadmin = User::all()->where('id','=',Auth::id())->first()->admin;
+
+        if (!$isadmin) {
+            return abort(403);
+        }
+
+        $entries = UserRoomEntry::where('user_id','=',$id)->paginate(10);
+
+        return view('users.show', [
+            'entries' => $entries
+        ]);
     }
 
     /**
